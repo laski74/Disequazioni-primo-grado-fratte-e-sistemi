@@ -1,0 +1,2460 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Math-ISS: Disequazioni - Manuale Completo</title>
+    
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #2d1b4e 100%);
+            color: #e0e6ed;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        /* Stelle animate */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(15, 23, 42, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 3px solid #3b82f6;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #f59e0b;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            background: linear-gradient(45deg, #60a5fa, #a78bfa, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { filter: brightness(1); }
+            to { filter: brightness(1.3); }
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: #94a3b8;
+            margin-top: 10px;
+        }
+        
+        /* Tabs Navigation */
+        .tabs-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .tab-button {
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+            color: white;
+            border: 2px solid #60a5fa;
+            padding: 15px 30px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tab-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(96, 165, 250, 0.4);
+        }
+        
+        .tab-button.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            border-color: #fbbf24;
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.6);
+        }
+        
+        .tab-button::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .tab-button:active::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Section styling */
+        .theory-section {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(139, 92, 246, 0.1) 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 5px solid #3b82f6;
+        }
+        
+        .theory-section h2 {
+            color: #60a5fa;
+            font-size: 2em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .theory-section h3 {
+            color: #a78bfa;
+            font-size: 1.5em;
+            margin: 25px 0 15px 0;
+        }
+        
+        .definition-box {
+            background: rgba(16, 185, 129, 0.15);
+            border: 2px solid #10b981;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .definition-box h4 {
+            color: #6ee7b7;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+        
+        .example-box {
+            background: rgba(251, 191, 36, 0.15);
+            border-left: 4px solid #fbbf24;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .example-box h4 {
+            color: #fcd34d;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .warning-box {
+            background: rgba(239, 68, 68, 0.15);
+            border: 2px solid #ef4444;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .warning-box h4 {
+            color: #fca5a5;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .important-box {
+            background: rgba(139, 92, 246, 0.15);
+            border: 2px solid #8b5cf6;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .important-box h4 {
+            color: #c4b5fd;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .math-expression {
+            background: rgba(15, 23, 42, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+            border: 2px solid #3b82f6;
+            overflow-x: auto;
+        }
+        
+        /* Interval representation */
+        .interval-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .interval-card {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #475569;
+            transition: all 0.3s ease;
+        }
+        
+        .interval-card:hover {
+            border-color: #60a5fa;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(96, 165, 250, 0.3);
+        }
+        
+        .interval-card h5 {
+            color: #fbbf24;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        /* Exercise card */
+        .exercise-card {
+            background: linear-gradient(135deg, rgba(51, 65, 85, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 3px solid rgba(59, 130, 246, 0.3);
+            transition: all 0.5s ease;
+        }
+        
+        .exercise-card:hover {
+            border-color: rgba(96, 165, 250, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+        
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .exercise-number {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #60a5fa;
+        }
+        
+        .difficulty-badge {
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.95em;
+            font-weight: bold;
+        }
+        
+        .easy { 
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3);
+        }
+        
+        .medium { 
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            box-shadow: 0 3px 10px rgba(245, 158, 11, 0.3);
+        }
+        
+        .hard { 
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            box-shadow: 0 3px 10px rgba(239, 68, 68, 0.3);
+        }
+        
+        /* Solution toggle button */
+        .solution-toggle {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(245, 158, 11, 0.4);
+        }
+        
+        .solution-toggle:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.6);
+        }
+        
+        .solution-toggle .icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .solution-toggle:hover .icon {
+            animation: bounce 0.6s ease;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Solution content */
+        .solution-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, opacity 0.5s ease;
+            opacity: 0;
+        }
+        
+        .solution-content.visible {
+            max-height: 5000px;
+            opacity: 1;
+            margin-top: 25px;
+        }
+        
+        .solution-box {
+            background: linear-gradient(135deg, #065f46 0%, #047857 100%);
+            padding: 30px;
+            border-radius: 15px;
+            border: 3px solid #10b981;
+        }
+        
+        .solution-step {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #34d399;
+            position: relative;
+        }
+        
+        .solution-step h4 {
+            color: #6ee7b7;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        /* Number line visualization */
+        .number-line {
+            background: rgba(15, 23, 42, 0.9);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .number-line svg {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(30, 41, 59, 0.5);
+        }
+        
+        th, td {
+            border: 1px solid #475569;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            font-weight: bold;
+        }
+        
+        tr:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        /* Schema del segno italiano con SVG */
+        .segno-schema-svg {
+            background: rgba(15, 23, 42, 0.9);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border: 2px solid #3b82f6;
+            overflow-x: auto;
+        }
+        
+        .segno-schema-svg svg {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        /* List styling */
+        ul, ol {
+            margin-left: 30px;
+            margin-top: 15px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2em; }
+            .tabs-nav { flex-direction: column; }
+            .tab-button { width: 100%; }
+            .interval-examples { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Stelle animate -->
+    <div class="stars" id="stars"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div style="font-size: 3em;">🎯📊🚀</div>
+            <h1>MATH-ISS: DISEQUAZIONI</h1>
+            <p class="subtitle">Manuale Completo di Addestramento</p>
+            <p style="color: #64748b; margin-top: 10px;">Anno Stellare 2157 | Modulo Avanzato</p>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="tabs-nav">
+            <button class="tab-button active" onclick="openTab('tab1')">
+                📚 SCHEDA 1: Teoria Disequazioni Intere
+            </button>
+            <button class="tab-button" onclick="openTab('tab2')">
+                ✏️ SCHEDA 2: Esercizi Disequazioni Intere
+            </button>
+            <button class="tab-button" onclick="openTab('tab3')">
+                📖 SCHEDA 3: Teoria Disequazioni Fratte
+            </button>
+            <button class="tab-button" onclick="openTab('tab4')">
+                🎯 SCHEDA 4: Esercizi Disequazioni Fratte
+            </button>
+            <button class="tab-button" onclick="openTab('tab5')">
+                🔗 SCHEDA 5: Sistemi di Disequazioni
+            </button>
+        </div>
+
+        <!-- TAB 1: Teoria Disequazioni Intere -->
+        <div id="tab1" class="tab-content active">
+            <div class="theory-section">
+                <h2>📚 TEORIA: DISEQUAZIONI INTERE</h2>
+                
+                <div class="definition-box">
+                    <h4>🎯 Definizione di Disequazione</h4>
+                    <p>Una <strong>disequazione</strong> è una disuguaglianza tra due espressioni algebriche che contiene una o più incognite.</p>
+                    <p style="margin-top: 15px;">A differenza delle equazioni (dove cerchiamo valori che rendono vera un'uguaglianza), nelle disequazioni cerchiamo tutti i valori che rendono vera una <strong>disuguaglianza</strong>.</p>
+                    <div class="math-expression">
+                        \[f(x) < g(x) \quad \text{oppure} \quad f(x) \leq g(x) \quad \text{oppure} \quad f(x) > g(x) \quad \text{oppure} \quad f(x) \geq g(x)\]
+                    </div>
+                </div>
+
+                <h3>🔢 Intervalli e loro Rappresentazione</h3>
+                
+                <div class="definition-box">
+                    <h4>📏 Cos'è un Intervallo?</h4>
+                    <p>Un <strong>intervallo</strong> è un insieme di numeri reali compresi tra due estremi.</p>
+                    <p style="margin-top: 15px;">Gli intervalli sono la soluzione tipica delle disequazioni!</p>
+                </div>
+
+                <h3>🎨 Tipi di Intervalli</h3>
+                
+                <div class="interval-examples">
+                    <div class="interval-card">
+                        <h5>📐 Intervallo Chiuso</h5>
+                        <p><strong>Notazione:</strong> \([a, b]\)</p>
+                        <p><strong>Significato:</strong> \(a \leq x \leq b\)</p>
+                        <p><strong>Descrizione:</strong> Include entrambi gli estremi</p>
+                        <div class="math-expression" style="margin-top: 10px;">
+                            \[[2, 5] = \{x \in \mathbb{R} : 2 \leq x \leq 5\}\]
+                        </div>
+                        <p style="margin-top: 10px; color: #6ee7b7;">✓ Include 2 e 5</p>
+                    </div>
+                    
+                    <div class="interval-card">
+                        <h5>⭕ Intervallo Aperto</h5>
+                        <p><strong>Notazione:</strong> \(]a, b[\)</p>
+                        <p><strong>Significato:</strong> \(a < x < b\)</p>
+                        <p><strong>Descrizione:</strong> Esclude entrambi gli estremi</p>
+                        <div class="math-expression" style="margin-top: 10px;">
+                            \[]2, 5[ = \{x \in \mathbb{R} : 2 < x < 5\}\]
+                        </div>
+                        <p style="margin-top: 10px; color: #fca5a5;">✗ Non include 2 e 5</p>
+                    </div>
+                    
+                    <div class="interval-card">
+                        <h5>🔓 Intervallo Semiaperto (a destra)</h5>
+                        <p><strong>Notazione:</strong> \([a, b[\)</p>
+                        <p><strong>Significato:</strong> \(a \leq x < b\)</p>
+                        <p><strong>Descrizione:</strong> Include a, esclude b</p>
+                        <div class="math-expression" style="margin-top: 10px;">
+                            \[[2, 5[ = \{x \in \mathbb{R} : 2 \leq x < 5\}\]
+                        </div>
+                        <p style="margin-top: 10px;">✓ Include 2, ✗ Non include 5</p>
+                    </div>
+                    
+                    <div class="interval-card">
+                        <h5>🔒 Intervallo Semiaperto (a sinistra)</h5>
+                        <p><strong>Notazione:</strong> \(]a, b]\)</p>
+                        <p><strong>Significato:</strong> \(a < x \leq b\)</p>
+                        <p><strong>Descrizione:</strong> Esclude a, include b</p>
+                        <div class="math-expression" style="margin-top: 10px;">
+                            \[]2, 5] = \{x \in \mathbb{R} : 2 < x \leq 5\}\]
+                        </div>
+                        <p style="margin-top: 10px;">✗ Non include 2, ✓ Include 5</p>
+                    </div>
+                    
+                    <div class="interval-card">
+                        <h5>∞ Intervallo Illimitato (a destra)</h5>
+                        <p><strong>Notazione:</strong> \([a, +\infty[\)</p>
+                        <p><strong>Significato:</strong> \(x \geq a\)</p>
+                        <p><strong>Descrizione:</strong> Da a fino a +infinito</p>
+                        <div class="math-expression" style="margin-top: 10px;">
+                            \[[3, +\infty[ = \{x \in \mathbb{R} : x \geq 3\}\]
+                        </div>
+                        <p style="margin-top: 10px; color: #fbbf24;">⚠️ L'infinito è sempre aperto!</p>
+                    </div>
+                    
+                    <div class="interval-card">
+                        <h5>∞ Intervallo Illimitato (a sinistra)</h5>
+                        <p><strong>Notazione:</strong> \(]-\infty, b]\)</p>
+                        <p><strong>Significato:</strong> \(x \leq b\)</p>
+                        <p><strong>Descrizione:</strong> Da -infinito fino a b</p>
+                        <div class="math-expression" style="margin-top: 10px;">
+                            \[]-\infty, 5] = \{x \in \mathbb{R} : x \leq 5\}\]
+                        </div>
+                        <p style="margin-top: 10px; color: #fbbf24;">⚠️ L'infinito è sempre aperto!</p>
+                    </div>
+                </div>
+
+                <h3>🔗 Operazioni tra Intervalli</h3>
+                
+                <div class="important-box">
+                    <h4>∪ Unione di Intervalli (simbolo ∪ oppure "vel")</h4>
+                    <p>L'<strong>unione</strong> di due intervalli è l'insieme di tutti i punti che appartengono ad almeno uno dei due intervalli.</p>
+                    <div class="example-box" style="margin-top: 15px;">
+                        <h4>📝 Esempio</h4>
+                        <div class="math-expression">
+                            \[[1, 3] \cup [5, 7] = \{x : (1 \leq x \leq 3) \vee (5 \leq x \leq 7)\}\]
+                        </div>
+                        <p style="margin-top: 15px;">Significa: tutti i numeri tra 1 e 3 (inclusi) <strong>oppure</strong> tra 5 e 7 (inclusi)</p>
+                    </div>
+                </div>
+
+                <div class="important-box">
+                    <h4>∩ Intersezione di Intervalli (simbolo ∩)</h4>
+                    <p>L'<strong>intersezione</strong> di due intervalli è l'insieme di tutti i punti che appartengono a entrambi gli intervalli.</p>
+                    <div class="example-box" style="margin-top: 15px;">
+                        <h4>📝 Esempio</h4>
+                        <div class="math-expression">
+                            \[[1, 5] \cap [3, 7] = [3, 5]\]
+                        </div>
+                        <p style="margin-top: 15px;">Significa: solo i numeri che sono sia tra 1 e 5 <strong>sia</strong> tra 3 e 7</p>
+                    </div>
+                </div>
+
+                <h3>📊 Rappresentazione sulla Retta</h3>
+                
+                <div class="example-box">
+                    <h4>Come disegnare intervalli sulla retta numerica:</h4>
+                    <ul>
+                        <li><strong>Pallino pieno (●)</strong>: L'estremo è incluso (≤ o ≥)</li>
+                        <li><strong>Pallino vuoto (○)</strong>: L'estremo è escluso (< o >)</li>
+                        <li><strong>Freccia</strong>: Indica che l'intervallo continua all'infinito</li>
+                    </ul>
+                    
+                    <div style="margin-top: 20px;">
+                        <p><strong>Esempio:</strong> \(x \geq 2\)</p>
+                        <div class="number-line">
+                            <svg width="600" height="80" viewBox="0 0 600 80">
+                                <!-- Asse -->
+                                <line x1="50" y1="40" x2="550" y2="40" stroke="#60a5fa" stroke-width="3"/>
+                                <polygon points="550,40 540,35 540,45" fill="#60a5fa"/>
+                                
+                                <!-- Tacche -->
+                                <line x1="200" y1="35" x2="200" y2="45" stroke="#94a3b8" stroke-width="2"/>
+                                <text x="200" y="65" fill="#94a3b8" text-anchor="middle" font-size="16">2</text>
+                                
+                                <!-- Pallino pieno -->
+                                <circle cx="200" cy="40" r="8" fill="#10b981" stroke="#6ee7b7" stroke-width="2"/>
+                                
+                                <!-- Intervallo -->
+                                <line x1="200" y1="40" x2="545" y2="40" stroke="#10b981" stroke-width="6"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>🔧 Risoluzione di Disequazioni Lineari</h3>
+                
+                <div class="definition-box">
+                    <h4>📋 Metodo di Risoluzione</h4>
+                    <p>Le disequazioni di primo grado si risolvono come le equazioni, ma con alcune <strong>regole importanti</strong>!</p>
+                    
+                    <h4 style="margin-top: 25px;">⚙️ Regole Fondamentali:</h4>
+                    <ol>
+                        <li><strong>Addizione/Sottrazione</strong>: Puoi sommare o sottrarre lo stesso numero a entrambi i membri senza cambiare il verso della disuguaglianza
+                            <div class="math-expression">
+                                \[x + 3 > 5 \quad \Rightarrow \quad x > 2\]
+                            </div>
+                        </li>
+                        <li><strong>Moltiplicazione/Divisione per numero POSITIVO</strong>: Il verso NON cambia
+                            <div class="math-expression">
+                                \[2x > 6 \quad \Rightarrow \quad x > 3\]
+                            </div>
+                        </li>
+                        <li><strong>Moltiplicazione/Divisione per numero NEGATIVO</strong>: Il verso SI INVERTE!
+                            <div class="math-expression">
+                                \[-2x > 6 \quad \Rightarrow \quad x < -3\]
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="warning-box">
+                    <h4>⚠️ ERRORE COMUNE: Dimenticare di invertire il verso!</h4>
+                    <p><strong>SBAGLIATO:</strong> \(-x > 5 \Rightarrow x > -5\) ✗</p>
+                    <p><strong>CORRETTO:</strong> \(-x > 5 \Rightarrow x < -5\) ✓</p>
+                    <p style="margin-top: 15px;"><em>Quando moltiplichi o dividi per -1 (o qualsiasi numero negativo), devi invertire > in < e viceversa!</em></p>
+                </div>
+
+                <h3>📝 Esercizi Guidati</h3>
+                
+                <div class="example-box">
+                    <h4>🎯 Esercizio Guidato 1: Disequazione Semplice</h4>
+                    <p><strong>Risolvi:</strong> \(3x - 5 > 10\)</p>
+                    
+                    <div class="solution-step" style="margin-top: 20px;">
+                        <span class="step-number">1</span>
+                        <h4>Isola il termine con x</h4>
+                        <div class="math-expression">
+                            \[3x > 10 + 5\]
+                        </div>
+                        <div class="math-expression">
+                            \[3x > 15\]
+                        </div>
+                    </div>
+                    
+                    <div class="solution-step">
+                        <span class="step-number">2</span>
+                        <h4>Dividi per il coefficiente (positivo!)</h4>
+                        <div class="math-expression">
+                            \[x > \frac{15}{3}\]
+                        </div>
+                        <div class="math-expression">
+                            \[x > 5\]
+                        </div>
+                        <p style="margin-top: 10px; color: #6ee7b7;">✓ Il verso NON cambia perché dividiamo per +3</p>
+                    </div>
+                    
+                    <div class="solution-step">
+                        <span class="step-number">3</span>
+                        <h4>Soluzione finale</h4>
+                        <div class="math-expression">
+                            \[S = \;]5, +\infty[ \quad \text{oppure} \quad x > 5\]
+                        </div>
+                        <div class="number-line" style="margin-top: 15px;">
+                            <svg width="600" height="80" viewBox="0 0 600 80">
+                                <line x1="50" y1="40" x2="550" y2="40" stroke="#60a5fa" stroke-width="3"/>
+                                <polygon points="550,40 540,35 540,45" fill="#60a5fa"/>
+                                <line x1="300" y1="35" x2="300" y2="45" stroke="#94a3b8" stroke-width="2"/>
+                                <text x="300" y="65" fill="#94a3b8" text-anchor="middle" font-size="16">5</text>
+                                <circle cx="300" cy="40" r="8" fill="none" stroke="#fca5a5" stroke-width="3"/>
+                                <line x1="300" y1="40" x2="545" y2="40" stroke="#10b981" stroke-width="6"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <h4>🎯 Esercizio Guidato 2: Coefficiente Negativo</h4>
+                    <p><strong>Risolvi:</strong> \(-2x + 4 \leq 10\)</p>
+                    
+                    <div class="solution-step" style="margin-top: 20px;">
+                        <span class="step-number">1</span>
+                        <h4>Porta il termine noto a destra</h4>
+                        <div class="math-expression">
+                            \[-2x \leq 10 - 4\]
+                        </div>
+                        <div class="math-expression">
+                            \[-2x \leq 6\]
+                        </div>
+                    </div>
+                    
+                    <div class="solution-step">
+                        <span class="step-number">2</span>
+                        <h4>Dividi per -2 e INVERTI il verso!</h4>
+                        <div class="math-expression">
+                            \[x \geq \frac{6}{-2}\]
+                        </div>
+                        <div class="math-expression">
+                            \[x \geq -3\]
+                        </div>
+                        <p style="margin-top: 10px; color: #fbbf24;">⚠️ Il verso SI INVERTE: da ≤ a ≥ perché dividiamo per -2!</p>
+                    </div>
+                    
+                    <div class="solution-step">
+                        <span class="step-number">3</span>
+                        <h4>Soluzione finale</h4>
+                        <div class="math-expression">
+                            \[S = [-3, +\infty[ \quad \text{oppure} \quad x \geq -3\]
+                        </div>
+                        <div class="number-line" style="margin-top: 15px;">
+                            <svg width="600" height="80" viewBox="0 0 600 80">
+                                <line x1="50" y1="40" x2="550" y2="40" stroke="#60a5fa" stroke-width="3"/>
+                                <polygon points="550,40 540,35 540,45" fill="#60a5fa"/>
+                                <line x1="200" y1="35" x2="200" y2="45" stroke="#94a3b8" stroke-width="2"/>
+                                <text x="200" y="65" fill="#94a3b8" text-anchor="middle" font-size="16">-3</text>
+                                <circle cx="200" cy="40" r="8" fill="#10b981" stroke="#6ee7b7" stroke-width="2"/>
+                                <line x1="200" y1="40" x2="545" y2="40" stroke="#10b981" stroke-width="6"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <h4>🎯 Esercizio Guidato 3: Disequazione con Parentesi</h4>
+                    <p><strong>Risolvi:</strong> \(5(x - 1) \geq 2(x + 4) + 3\)</p>
+                    
+                    <div class="solution-step" style="margin-top: 20px;">
+                        <span class="step-number">1</span>
+                        <h4>Sviluppa le parentesi</h4>
+                        <div class="math-expression">
+                            \[5x - 5 \geq 2x + 8 + 3\]
+                        </div>
+                        <div class="math-expression">
+                            \[5x - 5 \geq 2x + 11\]
+                        </div>
+                    </div>
+                    
+                    <div class="solution-step">
+                        <span class="step-number">2</span>
+                        <h4>Porta i termini con x a sinistra e i numeri a destra</h4>
+                        <div class="math-expression">
+                            \[5x - 2x \geq 11 + 5\]
+                        </div>
+                        <div class="math-expression">
+                            \[3x \geq 16\]
+                        </div>
+                    </div>
+                    
+                    <div class="solution-step">
+                        <span class="step-number">3</span>
+                        <h4>Dividi per 3 (positivo!)</h4>
+                        <div class="math-expression">
+                            \[x \geq \frac{16}{3}\]
+                        </div>
+                        <p style="margin-top: 10px; color: #6ee7b7;">✓ Il verso NON cambia perché dividiamo per +3</p>
+                    </div>
+                    
+                    <div class="solution-step">
+                        <span class="step-number">4</span>
+                        <h4>Soluzione finale</h4>
+                        <div class="math-expression">
+                            \[S = [\frac{16}{3}, +\infty[ \quad \text{oppure} \quad x \geq \frac{16}{3}\]
+                        </div>
+                        <p style="margin-top: 15px;">Nota: \(\frac{16}{3} \approx 5.33\)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: Esercizi Disequazioni Intere -->
+        <div id="tab2" class="tab-content">
+            <div class="theory-section">
+                <h2>✏️ ESERCIZI: DISEQUAZIONI INTERE</h2>
+                <p style="font-size: 1.1em; margin-bottom: 30px;">Clicca su "Mostra Soluzione" per vedere i passaggi dettagliati di ogni esercizio!</p>
+
+                <!-- Esercizio 1 -->
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <span class="exercise-number">ESERCIZIO 1</span>
+                        <span class="difficulty-badge easy">⭐ Facile</span>
+                    </div>
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Risolvi la seguente disequazione:</p>
+                    <div class="math-expression">
+                        \[5x - 3 > 12\]
+                    </div>
+                    
+                    <button class="solution-toggle" onclick="toggleSolution('ex1')">
+                        <span class="icon">🔍</span> Mostra Soluzione
+                    </button>
+                    
+                    <div class="solution-content" id="ex1">
+                        <div class="solution-box">
+                            <div class="solution-step">
+                                <span class="step-number">1</span>
+                                <h4>Porta i termini noti a destra</h4>
+                                <div class="math-expression">
+                                    \[5x > 12 + 3\]
+                                </div>
+                                <div class="math-expression">
+                                    \[5x > 15\]
+                                </div>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">2</span>
+                                <h4>Dividi per 5 (positivo!)</h4>
+                                <div class="math-expression">
+                                    \[x > \frac{15}{5}\]
+                                </div>
+                                <div class="math-expression">
+                                    \[x > 3\]
+                                </div>
+                                <p style="color: #6ee7b7; margin-top: 10px;">✓ Il verso NON cambia (dividiamo per +5)</p>
+                            </div>
+                            
+                            <div class="warning-box">
+                                <h4>💡 Errore Comune da Evitare</h4>
+                                <p><strong>NON</strong> scrivere \(x = 3\)! La soluzione è un intervallo, non un singolo numero!</p>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">3</span>
+                                <h4>✅ Soluzione Finale</h4>
+                                <div class="math-expression">
+                                    \[S = \;]3, +\infty[\]
+                                </div>
+                                <p style="margin-top: 15px;">Oppure in forma esplicita: \(x > 3\)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Esercizio 2 -->
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <span class="exercise-number">ESERCIZIO 2</span>
+                        <span class="difficulty-badge easy">⭐ Facile</span>
+                    </div>
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Risolvi la seguente disequazione:</p>
+                    <div class="math-expression">
+                        \[-3x + 7 \leq 1\]
+                    </div>
+                    
+                    <button class="solution-toggle" onclick="toggleSolution('ex2')">
+                        <span class="icon">🔍</span> Mostra Soluzione
+                    </button>
+                    
+                    <div class="solution-content" id="ex2">
+                        <div class="solution-box">
+                            <div class="solution-step">
+                                <span class="step-number">1</span>
+                                <h4>Isola il termine con x</h4>
+                                <div class="math-expression">
+                                    \[-3x \leq 1 - 7\]
+                                </div>
+                                <div class="math-expression">
+                                    \[-3x \leq -6\]
+                                </div>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">2</span>
+                                <h4>⚠️ Dividi per -3 e INVERTI!</h4>
+                                <div class="math-expression">
+                                    \[x \geq \frac{-6}{-3}\]
+                                </div>
+                                <div class="math-expression">
+                                    \[x \geq 2\]
+                                </div>
+                                <p style="color: #fbbf24; margin-top: 10px;">⚠️ ATTENZIONE: Il verso si inverte da ≤ a ≥ perché dividiamo per -3!</p>
+                            </div>
+                            
+                            <div class="warning-box">
+                                <h4>💡 Errore Comune da Evitare</h4>
+                                <p><strong>SBAGLIATO:</strong> \(-3x \leq -6 \Rightarrow x \leq 2\) ✗</p>
+                                <p><strong>CORRETTO:</strong> \(-3x \leq -6 \Rightarrow x \geq 2\) ✓</p>
+                                <p style="margin-top: 10px;"><em>Quando dividi per un numero negativo, DEVI invertire il verso!</em></p>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">3</span>
+                                <h4>✅ Soluzione Finale</h4>
+                                <div class="math-expression">
+                                    \[S = [2, +\infty[\]
+                                </div>
+                                <p style="margin-top: 15px;">Il 2 è incluso (parentesi quadra) perché abbiamo ≥</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Esercizio 3 -->
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <span class="exercise-number">ESERCIZIO 3</span>
+                        <span class="difficulty-badge medium">⭐⭐ Medio</span>
+                    </div>
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Risolvi la seguente disequazione:</p>
+                    <div class="math-expression">
+                        \[4(x - 2) \geq 3x + 5\]
+                    </div>
+                    
+                    <button class="solution-toggle" onclick="toggleSolution('ex3')">
+                        <span class="icon">🔍</span> Mostra Soluzione
+                    </button>
+                    
+                    <div class="solution-content" id="ex3">
+                        <div class="solution-box">
+                            <div class="solution-step">
+                                <span class="step-number">1</span>
+                                <h4>Sviluppa il prodotto</h4>
+                                <div class="math-expression">
+                                    \[4x - 8 \geq 3x + 5\]
+                                </div>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">2</span>
+                                <h4>Porta tutti i termini con x a sinistra e i numeri a destra</h4>
+                                <div class="math-expression">
+                                    \[4x - 3x \geq 5 + 8\]
+                                </div>
+                                <div class="math-expression">
+                                    \[x \geq 13\]
+                                </div>
+                            </div>
+                            
+                            <div class="warning-box">
+                                <h4>💡 Suggerimento</h4>
+                                <p>Quando il coefficiente di x è già positivo (+1 in questo caso), non devi invertire il verso!</p>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">3</span>
+                                <h4>✅ Soluzione Finale</h4>
+                                <div class="math-expression">
+                                    \[S = [13, +\infty[\]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Esercizio 4 -->
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <span class="exercise-number">ESERCIZIO 4</span>
+                        <span class="difficulty-badge medium">⭐⭐ Medio</span>
+                    </div>
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Risolvi la seguente disequazione:</p>
+                    <div class="math-expression">
+                        \[\frac{2x - 5}{3} - \frac{x + 1}{2} \geq 1\]
+                    </div>
+                    
+                    <button class="solution-toggle" onclick="toggleSolution('ex4')">
+                        <span class="icon">🔍</span> Mostra Soluzione
+                    </button>
+                    
+                    <div class="solution-content" id="ex4">
+                        <div class="solution-box">
+                            <div class="solution-step">
+                                <span class="step-number">1</span>
+                                <h4>Calcola il m.c.m. dei denominatori</h4>
+                                <p>m.c.m.(3, 2) = 6</p>
+                                <p style="margin-top: 15px;">Moltiplica tutti i termini per 6:</p>
+                                <div class="math-expression">
+                                    \[6 \cdot \frac{2x - 5}{3} - 6 \cdot \frac{x + 1}{2} \geq 6 \cdot 1\]
+                                </div>
+                                <div class="math-expression">
+                                    \[2(2x - 5) - 3(x + 1) \geq 6\]
+                                </div>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">2</span>
+                                <h4>Sviluppa i prodotti</h4>
+                                <div class="math-expression">
+                                    \[4x - 10 - 3x - 3 \geq 6\]
+                                </div>
+                                <div class="math-expression">
+                                    \[x - 13 \geq 6\]
+                                </div>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">3</span>
+                                <h4>Risolvi</h4>
+                                <div class="math-expression">
+                                    \[x \geq 6 + 13\]
+                                </div>
+                                <div class="math-expression">
+                                    \[x \geq 19\]
+                                </div>
+                            </div>
+                            
+                            <div class="warning-box">
+                                <h4>💡 Suggerimento</h4>
+                                <p>Quando hai frazioni con denominatori numerici, moltiplica per il m.c.m. per eliminarle!</p>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">4</span>
+                                <h4>✅ Soluzione Finale</h4>
+                                <div class="math-expression">
+                                    \[S = [19, +\infty[\]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Esercizio 5 -->
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <span class="exercise-number">ESERCIZIO 5</span>
+                        <span class="difficulty-badge hard">⭐⭐⭐ Difficile</span>
+                    </div>
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Risolvi la seguente disequazione:</p>
+                    <div class="math-expression">
+                        \[3(2x - 1) - 2(x + 3) \leq 4x - 11\]
+                    </div>
+                    
+                    <button class="solution-toggle" onclick="toggleSolution('ex5')">
+                        <span class="icon">🔍</span> Mostra Soluzione
+                    </button>
+                    
+                    <div class="solution-content" id="ex5">
+                        <div class="solution-box">
+                            <div class="solution-step">
+                                <span class="step-number">1</span>
+                                <h4>Sviluppa i prodotti</h4>
+                                <div class="math-expression">
+                                    \[6x - 3 - 2x - 6 \leq 4x - 11\]
+                                </div>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">2</span>
+                                <h4>Semplifica il primo membro</h4>
+                                <div class="math-expression">
+                                    \[4x - 9 \leq 4x - 11\]
+                                </div>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">3</span>
+                                <h4>Porta tutto a sinistra</h4>
+                                <div class="math-expression">
+                                    \[4x - 4x \leq -11 + 9\]
+                                </div>
+                                <div class="math-expression">
+                                    \[0 \leq -2\]
+                                </div>
+                            </div>
+                            
+                            <div class="warning-box">
+                                <h4>⚠️ Disequazione Impossibile!</h4>
+                                <p>L'affermazione \(0 \leq -2\) è <strong>sempre falsa</strong>, qualunque sia il valore di x!</p>
+                                <p style="margin-top: 10px;">Questo significa che <strong>nessun valore</strong> di x può soddisfare la disequazione.</p>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">4</span>
+                                <h4>✅ Soluzione Finale</h4>
+                                <div class="math-expression">
+                                    \[S = \emptyset \quad \text{(insieme vuoto)}\]
+                                </div>
+                                <p style="margin-top: 15px;"><strong>La disequazione è IMPOSSIBILE</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Esercizio 6 -->
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <span class="exercise-number">ESERCIZIO 6</span>
+                        <span class="difficulty-badge hard">⭐⭐⭐ Difficile</span>
+                    </div>
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Risolvi la seguente disequazione:</p>
+                    <div class="math-expression">
+                        \[\frac{5 - 2x}{4} + \frac{3x + 1}{6} < \frac{x - 2}{3}\]
+                    </div>
+                    
+                    <button class="solution-toggle" onclick="toggleSolution('ex6')">
+                        <span class="icon">🔍</span> Mostra Soluzione
+                    </button>
+                    
+                    <div class="solution-content" id="ex6">
+                        <div class="solution-box">
+                            <div class="solution-step">
+                                <span class="step-number">1</span>
+                                <h4>Calcola il m.c.m.</h4>
+                                <p>m.c.m.(4, 6, 3) = 12</p>
+                                <p style="margin-top: 15px;">Moltiplica tutti i termini per 12:</p>
+                                <div class="math-expression">
+                                    \[12 \cdot \frac{5 - 2x}{4} + 12 \cdot \frac{3x + 1}{6} < 12 \cdot \frac{x - 2}{3}\]
+                                </div>
+                                <div class="math-expression">
+                                    \[3(5 - 2x) + 2(3x + 1) < 4(x - 2)\]
+                                </div>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">2</span>
+                                <h4>Sviluppa tutti i prodotti</h4>
+                                <div class="math-expression">
+                                    \[15 - 6x + 6x + 2 < 4x - 8\]
+                                </div>
+                                <div class="math-expression">
+                                    \[17 < 4x - 8\]
+                                </div>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">3</span>
+                                <h4>Risolvi</h4>
+                                <div class="math-expression">
+                                    \[17 + 8 < 4x\]
+                                </div>
+                                <div class="math-expression">
+                                    \[25 < 4x\]
+                                </div>
+                                <div class="math-expression">
+                                    \[x > \frac{25}{4}\]
+                                </div>
+                            </div>
+                            
+                            <div class="warning-box">
+                                <h4>💡 Attenzione</h4>
+                                <p>Nota che i termini -6x e +6x si semplificano! Controlla sempre se ci sono termini opposti.</p>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">4</span>
+                                <h4>✅ Soluzione Finale</h4>
+                                <div class="math-expression">
+                                    \[S = \;]\frac{25}{4}, +\infty[ = \;]6.25, +\infty[\]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: Teoria Disequazioni Fratte -->
+        <div id="tab3" class="tab-content">
+            <div class="theory-section">
+                <h2>📖 TEORIA: DISEQUAZIONI FRATTE</h2>
+                
+                <div class="definition-box">
+                    <h4>🎯 Definizione di Disequazione Fratta</h4>
+                    <p>Una <strong>disequazione fratta</strong> è una disequazione in cui l'incognita compare al denominatore di almeno una frazione.</p>
+                    <div class="math-expression">
+                        \[\frac{N(x)}{D(x)} > 0 \quad \text{oppure} \quad \frac{N(x)}{D(x)} \geq 0 \quad \text{ecc.}\]
+                    </div>
+                    <p style="margin-top: 15px;">dove \(N(x)\) è il numeratore e \(D(x)\) è il denominatore</p>
+                </div>
+
+                <div class="warning-box">
+                    <h4>⚠️ ATTENZIONE FONDAMENTALE!</h4>
+                    <p>Nelle disequazioni fratte <strong>NON puoi moltiplicare</strong> entrambi i membri per il denominatore come facevi nelle equazioni!</p>
+                    <p style="margin-top: 15px;"><strong>Perché?</strong> Perché non sai se il denominatore è positivo o negativo, e questo cambierebbe il verso della disuguaglianza!</p>
+                </div>
+
+                <h3>📋 Metodo dello Studio del Segno</h3>
+                
+                <div class="definition-box">
+                    <h4>🔧 Procedimento Standard</h4>
+                    <p>Per risolvere una disequazione fratta usiamo il <strong>metodo dello studio del segno</strong>:</p>
+                    
+                    <ol style="margin-top: 20px; line-height: 2;">
+                        <li><strong>Porta tutto a primo membro</strong> in modo da avere 0 a secondo membro</li>
+                        <li><strong>Riduci a un'unica frazione</strong> (se ci sono più frazioni)</li>
+                        <li><strong>Studia il segno</strong> separatamente di numeratore e denominatore</li>
+                        <li><strong>Costruisci la tabella dei segni</strong></li>
+                        <li><strong>Leggi la soluzione</strong> dalla tabella</li>
+                    </ol>
+                </div>
+
+                <h3>📊 Studio del Segno - Regole Fondamentali</h3>
+                
+                <div class="important-box">
+                    <h4>🎨 Regola dei Segni</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Numeratore</th>
+                                <th>Denominatore</th>
+                                <th>Frazione</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="color: #10b981;">Positivo (+)</td>
+                                <td style="color: #10b981;">Positivo (+)</td>
+                                <td style="color: #10b981; font-weight: bold;">Positiva (+)</td>
+                            </tr>
+                            <tr>
+                                <td style="color: #10b981;">Positivo (+)</td>
+                                <td style="color: #ef4444;">Negativo (−)</td>
+                                <td style="color: #ef4444; font-weight: bold;">Negativa (−)</td>
+                            </tr>
+                            <tr>
+                                <td style="color: #ef4444;">Negativo (−)</td>
+                                <td style="color: #10b981;">Positivo (+)</td>
+                                <td style="color: #ef4444; font-weight: bold;">Negativa (−)</td>
+                            </tr>
+                            <tr>
+                                <td style="color: #ef4444;">Negativo (−)</td>
+                                <td style="color: #ef4444;">Negativo (−)</td>
+                                <td style="color: #10b981; font-weight: bold;">Positiva (+)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="margin-top: 15px; color: #fbbf24;">💡 Ricorda: Meno per meno fa PIÙ!</p>
+                </div>
+
+                <h3>🎯 Disequazioni con ≥ o ≤</h3>
+                
+                <div class="warning-box">
+                    <h4>⚠️ ATTENZIONE agli Zeri!</h4>
+                    <ul style="margin-top: 15px;">
+                        <li><strong>Se hai > o <</strong>: Gli zeri del numeratore e denominatore sono ESCLUSI</li>
+                        <li><strong>Se hai ≥ o ≤</strong>:
+                            <ul style="margin-top: 10px;">
+                                <li>Gli zeri del <span style="color: #10b981;">NUMERATORE sono INCLUSI</span> ✓</li>
+                                <li>Gli zeri del <span style="color: #ef4444;">DENOMINATORE sono SEMPRE ESCLUSI</span> ✗ (altrimenti dividi per zero!)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3>📝 Esempio Guidato Completo</h3>
+                
+                <div class="example-box">
+                    <h4>🎯 Risolvi: \(\displaystyle\frac{x - 2}{x + 3} > 0\)</h4>
+                    
+                    <div class="solution-step" style="margin-top: 20px;">
+                        <span class="step-number">1</span>
+                        <h4>La disequazione è già nella forma corretta</h4>
+                        <p>Abbiamo già 0 a secondo membro e un'unica frazione a primo membro.</p>
+                    </div>
+                    
+                    <div class="solution-step">
+                        <span class="step-number">2</span>
+                        <h4>Studio del segno del numeratore: \(x - 2\)</h4>
+                        <p>Quando è positivo? \(x - 2 > 0 \Rightarrow x > 2\)</p>
+                        <p>Quando è negativo? \(x - 2 < 0 \Rightarrow x < 2\)</p>
+                        <p>Quando è zero? \(x = 2\)</p>
+                    </div>
+                    
+                    <div class="solution-step">
+                        <span class="step-number">3</span>
+                        <h4>Studio del segno del denominatore: \(x + 3\)</h4>
+                        <p>Quando è positivo? \(x + 3 > 0 \Rightarrow x > -3\)</p>
+                        <p>Quando è negativo? \(x + 3 < 0 \Rightarrow x < -3\)</p>
+                        <p>Quando è zero? \(x = -3\)</p>
+                    </div>
+                    
+                    <div class="solution-step">
+                        <span class="step-number">4</span>
+                        <h4>Schema del segno</h4>
+                        <div class="segno-schema-svg">
+                            <svg viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Valori sopra -->
+                                <line x1="60" y1="40" x2="740" y2="40" stroke="#60a5fa" stroke-width="2"/>
+                                <text x="60" y="25" fill="#fbbf24" font-size="16" font-weight="bold" text-anchor="middle">-∞</text>
+                                <text x="287" y="25" fill="#fbbf24" font-size="16" font-weight="bold" text-anchor="middle">-3</text>
+                                <text x="513" y="25" fill="#fbbf24" font-size="16" font-weight="bold" text-anchor="middle">2</text>
+                                <text x="740" y="25" fill="#fbbf24" font-size="16" font-weight="bold" text-anchor="middle">+∞</text>
+                                
+                                <!-- Riga 1: x - 2 -->
+                                <text x="20" y="85" fill="#94a3b8" font-size="15" font-weight="bold">x − 2</text>
+                                <line x1="180" y1="80" x2="740" y2="80" stroke="#475569" stroke-width="3"/>
+                                <line x1="287" y1="60" x2="287" y2="100" stroke="#60a5fa" stroke-width="3"/>
+                                <line x1="513" y1="60" x2="513" y2="100" stroke="#60a5fa" stroke-width="3"/>
+                                <text x="233" y="87" fill="#ef4444" font-size="22" font-weight="bold" text-anchor="middle">−</text>
+                                <text x="400" y="87" fill="#ef4444" font-size="22" font-weight="bold" text-anchor="middle">−</text>
+                                <circle cx="513" cy="80" r="12" fill="#fbbf24" stroke="#60a5fa" stroke-width="2"/>
+                                <text x="513" y="85" fill="#0f172a" font-size="14" font-weight="bold" text-anchor="middle">0</text>
+                                <text x="627" y="87" fill="#10b981" font-size="22" font-weight="bold" text-anchor="middle">+</text>
+                                
+                                <!-- Riga 2: x + 3 -->
+                                <text x="20" y="145" fill="#94a3b8" font-size="15" font-weight="bold">x + 3</text>
+                                <line x1="180" y1="140" x2="740" y2="140" stroke="#475569" stroke-width="3"/>
+                                <line x1="287" y1="120" x2="287" y2="160" stroke="#60a5fa" stroke-width="3"/>
+                                <line x1="513" y1="120" x2="513" y2="160" stroke="#60a5fa" stroke-width="3"/>
+                                <text x="233" y="147" fill="#ef4444" font-size="22" font-weight="bold" text-anchor="middle">−</text>
+                                <circle cx="287" cy="140" r="12" fill="#fbbf24" stroke="#60a5fa" stroke-width="2"/>
+                                <text x="287" y="145" fill="#0f172a" font-size="14" font-weight="bold" text-anchor="middle">0</text>
+                                <text x="400" y="147" fill="#10b981" font-size="22" font-weight="bold" text-anchor="middle">+</text>
+                                <text x="627" y="147" fill="#10b981" font-size="22" font-weight="bold" text-anchor="middle">+</text>
+                                
+                                <!-- Riga 3: Frazione (evidenziata) -->
+                                <rect x="10" y="180" width="780" height="50" fill="rgba(251, 191, 36, 0.15)" stroke="#fbbf24" stroke-width="2" rx="8"/>
+                                <text x="20" y="210" fill="#fbbf24" font-size="16" font-weight="bold">Frazione</text>
+                                <line x1="180" y1="205" x2="740" y2="205" stroke="#fbbf24" stroke-width="4"/>
+                                <line x1="287" y1="185" x2="287" y2="225" stroke="#60a5fa" stroke-width="3"/>
+                                <line x1="513" y1="185" x2="513" y2="225" stroke="#60a5fa" stroke-width="3"/>
+                                <!-- Zone evidenziate -->
+                                <rect x="180" y="190" width="107" height="30" fill="rgba(251, 191, 36, 0.25)" stroke="rgba(251, 191, 36, 0.5)" stroke-width="2" rx="4"/>
+                                <rect x="513" y="190" width="227" height="30" fill="rgba(251, 191, 36, 0.25)" stroke="rgba(251, 191, 36, 0.5)" stroke-width="2" rx="4"/>
+                                <text x="233" y="212" fill="#10b981" font-size="22" font-weight="bold" text-anchor="middle">+</text>
+                                <circle cx="287" cy="205" r="12" fill="#ef4444" stroke="#dc2626" stroke-width="2"/>
+                                <text x="287" y="210" fill="white" font-size="14" font-weight="bold" text-anchor="middle">∅</text>
+                                <text x="400" y="212" fill="#ef4444" font-size="22" font-weight="bold" text-anchor="middle">−</text>
+                                <circle cx="513" cy="205" r="12" fill="#fbbf24" stroke="#60a5fa" stroke-width="2"/>
+                                <text x="513" y="210" fill="#0f172a" font-size="14" font-weight="bold" text-anchor="middle">0</text>
+                                <text x="627" y="212" fill="#10b981" font-size="22" font-weight="bold" text-anchor="middle">+</text>
+                            </svg>
+                        </div>
+                        <p style="margin-top: 15px;">Il simbolo ∅ indica che in x = -3 c'è un'<strong>asintoto</strong> (denominatore = 0)</p>
+                    </div>
+                    
+                    <div class="solution-step">
+                        <span class="step-number">5</span>
+                        <h4>Lettura della soluzione</h4>
+                        <p>Vogliamo \(\displaystyle\frac{x-2}{x+3} > 0\), quindi cerchiamo dove la frazione è <strong>positiva</strong> (+)</p>
+                        <p style="margin-top: 15px;">Dalla tabella: la frazione è positiva in due intervalli:</p>
+                        <ul style="margin-top: 10px;">
+                            <li>\(x < -3\) (prima zona positiva)</li>
+                            <li>\(x > 2\) (seconda zona positiva)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="solution-step">
+                        <span class="step-number">6</span>
+                        <h4>✅ Soluzione Finale</h4>
+                        <div class="math-expression">
+                            \[S = (-\infty, -3) \cup (2, +\infty)\]
+                        </div>
+                        <p style="margin-top: 15px;"><strong>Nota:</strong> Entrambi i valori -3 e 2 sono <strong>esclusi</strong> perché abbiamo > (stretto)</p>
+                        <ul style="margin-top: 10px;">
+                            <li>-3 escluso perché annulla il denominatore</li>
+                            <li>2 escluso perché abbiamo > e non ≥</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>🔍 Caso Speciale: Disequazione con ≥</h3>
+                
+                <div class="example-box">
+                    <h4>🎯 Differenza tra > e ≥</h4>
+                    <p>Consideriamo lo stesso esercizio ma con ≥:</p>
+                    <div class="math-expression">
+                        \[\frac{x - 2}{x + 3} \geq 0\]
+                    </div>
+                    
+                    <div class="important-box" style="margin-top: 20px;">
+                        <h4>📋 Soluzione</h4>
+                        <p>Lo studio del segno è identico, MA:</p>
+                        <ul style="margin-top: 15px;">
+                            <li>Il valore <strong>x = 2</strong> (zero del numeratore) è <span style="color: #10b981;">INCLUSO</span> ✓</li>
+                            <li>Il valore <strong>x = -3</strong> (zero del denominatore) resta <span style="color: #ef4444;">ESCLUSO</span> ✗</li>
+                        </ul>
+                        <div class="math-expression" style="margin-top: 20px;">
+                            \[S = \;]-\infty, -3[ \;\cup\; [2, +\infty[\]
+                        </div>
+                        <p style="margin-top: 15px;">Nota la differenza: [2 invece di ]2 !</p>
+                    </div>
+                </div>
+
+                <h3>🎨 Suggerimenti per la Tabella dei Segni</h3>
+                
+                <div class="important-box">
+                    <h4>💡 Trucchi per non sbagliare</h4>
+                    <ol>
+                        <li><strong>Ordina sempre gli zeri</strong> da sinistra a destra (dal più piccolo al più grande)</li>
+                        <li><strong>Per ogni fattore</strong> (numeratore o denominatore):
+                            <ul style="margin-top: 10px;">
+                                <li>Se è nella forma \((x - a)\): positivo a destra di a, negativo a sinistra</li>
+                                <li>Se è nella forma \((a - x)\): negativo a destra di a, positivo a sinistra</li>
+                            </ul>
+                        </li>
+                        <li><strong>Per la riga della frazione</strong>: applica la regola dei segni riga per riga</li>
+                        <li><strong>Segna con ║</strong> i valori che annullano il denominatore (sempre esclusi!)</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: Esercizi Disequazioni Fratte -->
+        <div id="tab4" class="tab-content">
+            <div class="theory-section">
+                <h2>🎯 ESERCIZI: DISEQUAZIONI FRATTE</h2>
+                <p style="font-size: 1.1em; margin-bottom: 30px;">Clicca su "Mostra Soluzione" per vedere i passaggi dettagliati!</p>
+
+                <!-- Esercizio 1 Fratte -->
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <span class="exercise-number">ESERCIZIO 1</span>
+                        <span class="difficulty-badge easy">⭐ Facile</span>
+                    </div>
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Risolvi la seguente disequazione fratta:</p>
+                    <div class="math-expression">
+                        \[\frac{x - 3}{x + 1} > 0\]
+                    </div>
+                    
+                    <button class="solution-toggle" onclick="toggleSolution('exf1')">
+                        <span class="icon">🔍</span> Mostra Soluzione
+                    </button>
+                    
+                    <div class="solution-content" id="exf1">
+                        <div class="solution-box">
+                            <div class="solution-step">
+                                <span class="step-number">1</span>
+                                <h4>Studio del segno del numeratore</h4>
+                                <p>\(x - 3 = 0 \Rightarrow x = 3\)</p>
+                                <p>Positivo: \(x > 3\)</p>
+                                <p>Negativo: \(x < 3\)</p>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">2</span>
+                                <h4>Studio del segno del denominatore</h4>
+                                <p>\(x + 1 = 0 \Rightarrow x = -1\)</p>
+                                <p>Positivo: \(x > -1\)</p>
+                                <p>Negativo: \(x < -1\)</p>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">3</span>
+                                <h4>Schema del segno</h4>
+                                <div class="segno-schema-svg">
+                                    <svg viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg">
+                                        <line x1="60" y1="40" x2="740" y2="40" stroke="#60a5fa" stroke-width="2"/>
+                                        <text x="60" y="25" fill="#fbbf24" font-size="16" font-weight="bold" text-anchor="middle">-∞</text>
+                                        <text x="287" y="25" fill="#fbbf24" font-size="16" font-weight="bold" text-anchor="middle">-1</text>
+                                        <text x="513" y="25" fill="#fbbf24" font-size="16" font-weight="bold" text-anchor="middle">3</text>
+                                        <text x="740" y="25" fill="#fbbf24" font-size="16" font-weight="bold" text-anchor="middle">+∞</text>
+                                        
+                                        <text x="20" y="85" fill="#94a3b8" font-size="15" font-weight="bold">x − 3</text>
+                                        <line x1="180" y1="80" x2="740" y2="80" stroke="#475569" stroke-width="3"/>
+                                        <line x1="287" y1="60" x2="287" y2="100" stroke="#60a5fa" stroke-width="3"/>
+                                        <line x1="513" y1="60" x2="513" y2="100" stroke="#60a5fa" stroke-width="3"/>
+                                        <text x="233" y="87" fill="#ef4444" font-size="22" font-weight="bold" text-anchor="middle">−</text>
+                                        <text x="400" y="87" fill="#ef4444" font-size="22" font-weight="bold" text-anchor="middle">−</text>
+                                        <circle cx="513" cy="80" r="12" fill="#fbbf24" stroke="#60a5fa" stroke-width="2"/>
+                                        <text x="513" y="85" fill="#0f172a" font-size="14" font-weight="bold" text-anchor="middle">0</text>
+                                        <text x="627" y="87" fill="#10b981" font-size="22" font-weight="bold" text-anchor="middle">+</text>
+                                        
+                                        <text x="20" y="145" fill="#94a3b8" font-size="15" font-weight="bold">x + 1</text>
+                                        <line x1="180" y1="140" x2="740" y2="140" stroke="#475569" stroke-width="3"/>
+                                        <line x1="287" y1="120" x2="287" y2="160" stroke="#60a5fa" stroke-width="3"/>
+                                        <line x1="513" y1="120" x2="513" y2="160" stroke="#60a5fa" stroke-width="3"/>
+                                        <text x="233" y="147" fill="#ef4444" font-size="22" font-weight="bold" text-anchor="middle">−</text>
+                                        <circle cx="287" cy="140" r="12" fill="#fbbf24" stroke="#60a5fa" stroke-width="2"/>
+                                        <text x="287" y="145" fill="#0f172a" font-size="14" font-weight="bold" text-anchor="middle">0</text>
+                                        <text x="400" y="147" fill="#10b981" font-size="22" font-weight="bold" text-anchor="middle">+</text>
+                                        <text x="627" y="147" fill="#10b981" font-size="22" font-weight="bold" text-anchor="middle">+</text>
+                                        
+                                        <rect x="10" y="180" width="780" height="50" fill="rgba(251, 191, 36, 0.15)" stroke="#fbbf24" stroke-width="2" rx="8"/>
+                                        <text x="20" y="210" fill="#fbbf24" font-size="16" font-weight="bold">Frazione</text>
+                                        <line x1="180" y1="205" x2="740" y2="205" stroke="#fbbf24" stroke-width="4"/>
+                                        <line x1="287" y1="185" x2="287" y2="225" stroke="#60a5fa" stroke-width="3"/>
+                                        <line x1="513" y1="185" x2="513" y2="225" stroke="#60a5fa" stroke-width="3"/>
+                                        <rect x="180" y="190" width="107" height="30" fill="rgba(251, 191, 36, 0.25)" stroke="rgba(251, 191, 36, 0.5)" stroke-width="2" rx="4"/>
+                                        <rect x="513" y="190" width="227" height="30" fill="rgba(251, 191, 36, 0.25)" stroke="rgba(251, 191, 36, 0.5)" stroke-width="2" rx="4"/>
+                                        <text x="233" y="212" fill="#10b981" font-size="22" font-weight="bold" text-anchor="middle">+</text>
+                                        <circle cx="287" cy="205" r="12" fill="#ef4444" stroke="#dc2626" stroke-width="2"/>
+                                        <text x="287" y="210" fill="white" font-size="14" font-weight="bold" text-anchor="middle">∅</text>
+                                        <text x="400" y="212" fill="#ef4444" font-size="22" font-weight="bold" text-anchor="middle">−</text>
+                                        <circle cx="513" cy="205" r="12" fill="#fbbf24" stroke="#60a5fa" stroke-width="2"/>
+                                        <text x="513" y="210" fill="#0f172a" font-size="14" font-weight="bold" text-anchor="middle">0</text>
+                                        <text x="627" y="212" fill="#10b981" font-size="22" font-weight="bold" text-anchor="middle">+</text>
+                                    </svg>
+                                </div>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">4</span>
+                                <h4>Lettura: cerchiamo dove la frazione è > 0</h4>
+                                <p>La frazione è positiva quando:</p>
+                                <ul style="margin-top: 10px;">
+                                    <li>\(x < -1\)</li>
+                                    <li>\(x > 3\)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="warning-box">
+                                <h4>💡 Attenzione agli estremi!</h4>
+                                <p><strong>x = -1:</strong> ESCLUSO (annulla il denominatore)</p>
+                                <p><strong>x = 3:</strong> ESCLUSO (abbiamo > stretto, non ≥)</p>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">5</span>
+                                <h4>✅ Soluzione Finale</h4>
+                                <div class="math-expression">
+                                    \[S = \;]-\infty, -1[ \;\cup\; ]3, +\infty[\]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Esercizio 2 Fratte -->
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <span class="exercise-number">ESERCIZIO 2</span>
+                        <span class="difficulty-badge easy">⭐ Facile</span>
+                    </div>
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Risolvi la seguente disequazione fratta:</p>
+                    <div class="math-expression">
+                        \[\frac{2x + 4}{x - 2} \leq 0\]
+                    </div>
+                    
+                    <button class="solution-toggle" onclick="toggleSolution('exf2')">
+                        <span class="icon">🔍</span> Mostra Soluzione
+                    </button>
+                    
+                    <div class="solution-content" id="exf2">
+                        <div class="solution-box">
+                            <div class="solution-step">
+                                <span class="step-number">1</span>
+                                <h4>Studio del numeratore: \(2x + 4\)</h4>
+                                <p>\(2x + 4 = 0 \Rightarrow x = -2\)</p>
+                                <p>Positivo: \(x > -2\)</p>
+                                <p>Negativo: \(x < -2\)</p>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">2</span>
+                                <h4>Studio del denominatore: \(x - 2\)</h4>
+                                <p>\(x - 2 = 0 \Rightarrow x = 2\)</p>
+                                <p>Positivo: \(x > 2\)</p>
+                                <p>Negativo: \(x < 2\)</p>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">3</span>
+                                <h4>Schema del segno</h4>
+                                <div class="segno-schema">
+                                    <div class="segno-values">
+                                        <span class="segno-value">-∞</span>
+                                        <span class="segno-value">-2</span>
+                                        <span class="segno-value">2</span>
+                                        <span class="segno-value">+∞</span>
+                                    </div>
+                                    
+                                    <div class="segno-row">
+                                        <div class="segno-label">2x + 4</div>
+                                        <div class="segno-line-container">
+                                            <div class="segno-horizontal"></div>
+                                            <div class="segno-vertical" style="left: 33.33%;"></div>
+                                            <div class="segno-vertical" style="left: 66.67%;"></div>
+                                            <div class="segno-zone segno-negative" style="left: 16.67%;">−</div>
+                                            <div class="segno-zero" style="left: 33.33%;">0</div>
+                                            <div class="segno-zone segno-positive" style="left: 50%;">+</div>
+                                            <div class="segno-zone segno-positive" style="left: 83.33%;">+</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="segno-row">
+                                        <div class="segno-label">x - 2</div>
+                                        <div class="segno-line-container">
+                                            <div class="segno-horizontal"></div>
+                                            <div class="segno-vertical" style="left: 33.33%;"></div>
+                                            <div class="segno-vertical" style="left: 66.67%;"></div>
+                                            <div class="segno-zone segno-negative" style="left: 16.67%;">−</div>
+                                            <div class="segno-zone segno-negative" style="left: 50%;">−</div>
+                                            <div class="segno-zero" style="left: 66.67%; background: #ef4444; border-color: #ef4444; color: white;">∅</div>
+                                            <div class="segno-zone segno-positive" style="left: 83.33%;">+</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="segno-row final">
+                                        <div class="segno-label">Frazione</div>
+                                        <div class="segno-line-container">
+                                            <div class="segno-horizontal"></div>
+                                            <div class="segno-vertical" style="left: 33.33%;"></div>
+                                            <div class="segno-vertical" style="left: 66.67%;"></div>
+                                            <div class="segno-highlight" style="left: 33.33%; width: 33.34%;"></div>
+                                            <div class="segno-zone segno-positive" style="left: 16.67%;">+</div>
+                                            <div class="segno-zero" style="left: 33.33%;">0</div>
+                                            <div class="segno-zone segno-negative" style="left: 50%;">−</div>
+                                            <div class="segno-zero" style="left: 66.67%; background: #ef4444; border-color: #ef4444; color: white;">∅</div>
+                                            <div class="segno-zone segno-positive" style="left: 83.33%;">+</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">4</span>
+                                <h4>Lettura: cerchiamo dove la frazione è ≤ 0</h4>
+                                <p>La frazione è negativa o nulla quando: \(-2 \leq x < 2\)</p>
+                            </div>
+                            
+                            <div class="important-box">
+                                <h4>⚡ Attenzione con ≤ !</h4>
+                                <p><strong>x = -2:</strong> INCLUSO (zero del numeratore e abbiamo ≤)</p>
+                                <p><strong>x = 2:</strong> ESCLUSO (annulla il denominatore, sempre escluso!)</p>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">5</span>
+                                <h4>✅ Soluzione Finale</h4>
+                                <div class="math-expression">
+                                    \[S = [-2, 2[\]
+                                </div>
+                                <p style="margin-top: 15px;">-2 incluso (parentesi quadra), 2 escluso (parentesi quadra inversa)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Esercizio 3 Fratte -->
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <span class="exercise-number">ESERCIZIO 3</span>
+                        <span class="difficulty-badge medium">⭐⭐ Medio</span>
+                    </div>
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Risolvi la seguente disequazione fratta:</p>
+                    <div class="math-expression">
+                        \[\frac{x^2 - 4}{x + 2} \geq 0\]
+                    </div>
+                    
+                    <button class="solution-toggle" onclick="toggleSolution('exf3')">
+                        <span class="icon">🔍</span> Mostra Soluzione
+                    </button>
+                    
+                    <div class="solution-content" id="exf3">
+                        <div class="solution-box">
+                            <div class="solution-step">
+                                <span class="step-number">1</span>
+                                <h4>Scomposizione del numeratore</h4>
+                                <p>\(x^2 - 4\) è una differenza di quadrati:</p>
+                                <div class="math-expression">
+                                    \[x^2 - 4 = (x - 2)(x + 2)\]
+                                </div>
+                                <p style="margin-top: 15px;">La disequazione diventa:</p>
+                                <div class="math-expression">
+                                    \[\frac{(x-2)(x+2)}{x+2} \geq 0\]
+                                </div>
+                            </div>
+                            
+                            <div class="warning-box">
+                                <h4>⚠️ ATTENZIONE: Semplificazione pericolosa!</h4>
+                                <p><strong>NON</strong> semplificare \((x+2)\) senza pensarci!</p>
+                                <p style="margin-top: 10px;">Ricorda che \(x = -2\) annulla il denominatore, quindi <strong>x = -2 deve essere sempre escluso</strong>!</p>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">2</span>
+                                <h4>Dopo la semplificazione (con cautela!)</h4>
+                                <div class="math-expression">
+                                    \[x - 2 \geq 0 \quad \text{con} \quad x \neq -2\]
+                                </div>
+                                <p style="margin-top: 15px;">Quindi: \(x \geq 2\) con \(x \neq -2\)</p>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">3</span>
+                                <h4>✅ Soluzione Finale</h4>
+                                <div class="math-expression">
+                                    \[S = [2, +\infty[\]
+                                </div>
+                                <p style="margin-top: 15px;"><strong>Nota:</strong> x = -2 è automaticamente escluso perché -2 < 2</p>
+                            </div>
+                            
+                            <div class="important-box">
+                                <h4>📚 Metodo Alternativo: Tabella Completa</h4>
+                                <p>Senza semplificare, studiamo tutti i fattori:</p>
+                                <table style="margin-top: 15px;">
+                                    <thead>
+                                        <tr>
+                                            <th>x</th>
+                                            <th>−∞</th>
+                                            <th>−2</th>
+                                            <th></th>
+                                            <th>2</th>
+                                            <th>+∞</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>x − 2</strong></td>
+                                            <td style="color: #ef4444;">−</td>
+                                            <td style="color: #ef4444;">−</td>
+                                            <td style="color: #ef4444;">−</td>
+                                            <td>0</td>
+                                            <td style="color: #10b981;">+</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>x + 2 (num)</strong></td>
+                                            <td style="color: #ef4444;">−</td>
+                                            <td>0</td>
+                                            <td style="color: #10b981;">+</td>
+                                            <td style="color: #10b981;">+</td>
+                                            <td style="color: #10b981;">+</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>x + 2 (den)</strong></td>
+                                            <td style="color: #ef4444;">−</td>
+                                            <td>0</td>
+                                            <td style="color: #10b981;">+</td>
+                                            <td style="color: #10b981;">+</td>
+                                            <td style="color: #10b981;">+</td>
+                                        </tr>
+                                        <tr style="background: rgba(59, 130, 246, 0.2);">
+                                            <td><strong>Frazione</strong></td>
+                                            <td style="color: #ef4444; font-weight: bold;">−</td>
+                                            <td style="font-size: 1.5em;">║</td>
+                                            <td style="color: #ef4444; font-weight: bold;">−</td>
+                                            <td>0</td>
+                                            <td style="color: #10b981; font-weight: bold;">+</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p style="margin-top: 15px;">Cerchiamo ≥ 0, quindi la zona positiva: \(x \geq 2\)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Esercizio 4 Fratte -->
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <span class="exercise-number">ESERCIZIO 4</span>
+                        <span class="difficulty-badge medium">⭐⭐ Medio</span>
+                    </div>
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Risolvi la seguente disequazione fratta:</p>
+                    <div class="math-expression">
+                        \[\frac{x + 1}{x - 3} < 2\]
+                    </div>
+                    
+                    <button class="solution-toggle" onclick="toggleSolution('exf4')">
+                        <span class="icon">🔍</span> Mostra Soluzione
+                    </button>
+                    
+                    <div class="solution-content" id="exf4">
+                        <div class="solution-box">
+                            <div class="solution-step">
+                                <span class="step-number">1</span>
+                                <h4>Porta tutto a primo membro</h4>
+                                <div class="math-expression">
+                                    \[\frac{x+1}{x-3} - 2 < 0\]
+                                </div>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">2</span>
+                                <h4>Riduci a un'unica frazione</h4>
+                                <div class="math-expression">
+                                    \[\frac{x+1 - 2(x-3)}{x-3} < 0\]
+                                </div>
+                                <div class="math-expression">
+                                    \[\frac{x + 1 - 2x + 6}{x-3} < 0\]
+                                </div>
+                                <div class="math-expression">
+                                    \[\frac{-x + 7}{x-3} < 0\]
+                                </div>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">3</span>
+                                <h4>Studio del numeratore: \(-x + 7\)</h4>
+                                <p>\(-x + 7 = 0 \Rightarrow x = 7\)</p>
+                                <p>Positivo: \(x < 7\) (attenzione al segno -!)</p>
+                                <p>Negativo: \(x > 7\)</p>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">4</span>
+                                <h4>Studio del denominatore: \(x - 3\)</h4>
+                                <p>\(x - 3 = 0 \Rightarrow x = 3\)</p>
+                                <p>Positivo: \(x > 3\)</p>
+                                <p>Negativo: \(x < 3\)</p>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">5</span>
+                                <h4>Tabella dei segni</h4>
+                                <table style="margin-top: 15px;">
+                                    <thead>
+                                        <tr>
+                                            <th>x</th>
+                                            <th>−∞</th>
+                                            <th>3</th>
+                                            <th></th>
+                                            <th>7</th>
+                                            <th>+∞</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>−x + 7</strong></td>
+                                            <td style="color: #10b981;">+</td>
+                                            <td style="color: #10b981;">+</td>
+                                            <td style="color: #10b981;">+</td>
+                                            <td>0</td>
+                                            <td style="color: #ef4444;">−</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>x − 3</strong></td>
+                                            <td style="color: #ef4444;">−</td>
+                                            <td>0</td>
+                                            <td style="color: #10b981;">+</td>
+                                            <td style="color: #10b981;">+</td>
+                                            <td style="color: #10b981;">+</td>
+                                        </tr>
+                                        <tr style="background: rgba(59, 130, 246, 0.2);">
+                                            <td><strong>Frazione</strong></td>
+                                            <td style="color: #ef4444; font-weight: bold;">−</td>
+                                            <td style="font-size: 1.5em;">║</td>
+                                            <td style="color: #10b981; font-weight: bold;">+</td>
+                                            <td>0</td>
+                                            <td style="color: #ef4444; font-weight: bold;">−</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">6</span>
+                                <h4>Lettura: cerchiamo dove è < 0 (negativa)</h4>
+                                <p>La frazione è negativa in due zone:</p>
+                                <ul>
+                                    <li>\(x < 3\)</li>
+                                    <li>\(x > 7\)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">7</span>
+                                <h4>✅ Soluzione Finale</h4>
+                                <div class="math-expression">
+                                    \[S = \;]-\infty, 3[ \;\cup\; ]7, +\infty[\]
+                                </div>
+                                <p style="margin-top: 15px;">Entrambi gli estremi esclusi (3 e 7)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Esercizio 5 Fratte -->
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <span class="exercise-number">ESERCIZIO 5</span>
+                        <span class="difficulty-badge hard">⭐⭐⭐ Difficile</span>
+                    </div>
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Risolvi la seguente disequazione fratta:</p>
+                    <div class="math-expression">
+                        \[\frac{x^2 - 5x + 6}{x^2 - 9} > 0\]
+                    </div>
+                    
+                    <button class="solution-toggle" onclick="toggleSolution('exf5')">
+                        <span class="icon">🔍</span> Mostra Soluzione
+                    </button>
+                    
+                    <div class="solution-content" id="exf5">
+                        <div class="solution-box">
+                            <div class="solution-step">
+                                <span class="step-number">1</span>
+                                <h4>Scomposizione del numeratore</h4>
+                                <p>Troviamo le radici di \(x^2 - 5x + 6 = 0\):</p>
+                                <div class="math-expression">
+                                    \[x = \frac{5 \pm \sqrt{25 - 24}}{2} = \frac{5 \pm 1}{2}\]
+                                </div>
+                                <p style="margin-top: 10px;">\(x_1 = 3\), \(x_2 = 2\)</p>
+                                <p>Quindi: \(x^2 - 5x + 6 = (x - 2)(x - 3)\)</p>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">2</span>
+                                <h4>Scomposizione del denominatore</h4>
+                                <p>\(x^2 - 9\) è una differenza di quadrati:</p>
+                                <div class="math-expression">
+                                    \[x^2 - 9 = (x - 3)(x + 3)\]
+                                </div>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">3</span>
+                                <h4>Disequazione scomposta</h4>
+                                <div class="math-expression">
+                                    \[\frac{(x-2)(x-3)}{(x-3)(x+3)} > 0\]
+                                </div>
+                                <p style="margin-top: 15px; color: #fbbf24;">⚠️ Nota che \((x-3)\) si può semplificare, MA ricorda che \(x = 3\) deve essere escluso!</p>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">4</span>
+                                <h4>Studio dei segni di ogni fattore</h4>
+                                <ul>
+                                    <li><strong>x - 2:</strong> zero in x = 2, positivo per x > 2</li>
+                                    <li><strong>x - 3:</strong> zero in x = 3, positivo per x > 3</li>
+                                    <li><strong>x + 3:</strong> zero in x = -3, positivo per x > -3</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">5</span>
+                                <h4>Tabella dei segni completa</h4>
+                                <table style="margin-top: 15px;">
+                                    <thead>
+                                        <tr>
+                                            <th>x</th>
+                                            <th>−∞</th>
+                                            <th>−3</th>
+                                            <th></th>
+                                            <th>2</th>
+                                            <th></th>
+                                            <th>3</th>
+                                            <th>+∞</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>x − 2</strong></td>
+                                            <td style="color: #ef4444;">−</td>
+                                            <td style="color: #ef4444;">−</td>
+                                            <td style="color: #ef4444;">−</td>
+                                            <td>0</td>
+                                            <td style="color: #10b981;">+</td>
+                                            <td style="color: #10b981;">+</td>
+                                            <td style="color: #10b981;">+</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>x − 3 (num)</strong></td>
+                                            <td style="color: #ef4444;">−</td>
+                                            <td style="color: #ef4444;">−</td>
+                                            <td style="color: #ef4444;">−</td>
+                                            <td style="color: #ef4444;">−</td>
+                                            <td style="color: #ef4444;">−</td>
+                                            <td>0</td>
+                                            <td style="color: #10b981;">+</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>x − 3 (den)</strong></td>
+                                            <td style="color: #ef4444;">−</td>
+                                            <td style="color: #ef4444;">−</td>
+                                            <td style="color: #ef4444;">−</td>
+                                            <td style="color: #ef4444;">−</td>
+                                            <td style="color: #ef4444;">−</td>
+                                            <td>0</td>
+                                            <td style="color: #10b981;">+</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>x + 3</strong></td>
+                                            <td style="color: #ef4444;">−</td>
+                                            <td>0</td>
+                                            <td style="color: #10b981;">+</td>
+                                            <td style="color: #10b981;">+</td>
+                                            <td style="color: #10b981;">+</td>
+                                            <td style="color: #10b981;">+</td>
+                                            <td style="color: #10b981;">+</td>
+                                        </tr>
+                                        <tr style="background: rgba(59, 130, 246, 0.2);">
+                                            <td><strong>Frazione</strong></td>
+                                            <td style="color: #10b981; font-weight: bold;">+</td>
+                                            <td style="font-size: 1.5em;">║</td>
+                                            <td style="color: #ef4444; font-weight: bold;">−</td>
+                                            <td>0</td>
+                                            <td style="color: #10b981; font-weight: bold;">+</td>
+                                            <td style="font-size: 1.5em;">║</td>
+                                            <td style="color: #10b981; font-weight: bold;">+</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">6</span>
+                                <h4>Lettura: cerchiamo dove è > 0</h4>
+                                <p>La frazione è positiva in tre zone:</p>
+                                <ul>
+                                    <li>\(x < -3\)</li>
+                                    <li>\(2 < x < 3\)</li>
+                                    <li>\(x > 3\)</li>
+                                </ul>
+                                <p style="margin-top: 10px;">Ma le ultime due si uniscono escludendo x = 3:</p>
+                                <ul>
+                                    <li>\(x < -3\)</li>
+                                    <li>\(x > 2\) con \(x \neq 3\)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">7</span>
+                                <h4>✅ Soluzione Finale</h4>
+                                <div class="math-expression">
+                                    \[S = \;]-\infty, -3[ \;\cup\; ]2, 3[ \;\cup\; ]3, +\infty[\]
+                                </div>
+                                <p style="margin-top: 15px;">Oppure in forma più compatta:</p>
+                                <div class="math-expression">
+                                    \[S = \;]-\infty, -3[ \;\cup\; ]2, +\infty[ \;\setminus \{3\}\]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: Sistemi di Disequazioni -->
+        <div id="tab5" class="tab-content">
+            <div class="theory-section">
+                <h2>🔗 SISTEMI DI DISEQUAZIONI</h2>
+                
+                <div class="definition-box">
+                    <h4>🎯 Definizione di Sistema</h4>
+                    <p>Un <strong>sistema di disequazioni</strong> è un insieme di due o più disequazioni che devono essere verificate <strong>contemporaneamente</strong>.</p>
+                    <div class="math-expression">
+                        \[\begin{cases} f_1(x) > 0 \\ f_2(x) \leq 0 \\ f_3(x) \geq 0 \end{cases}\]
+                    </div>
+                    <p style="margin-top: 15px;">La soluzione è l'<strong>intersezione</strong> (∩) di tutte le soluzioni delle singole disequazioni.</p>
+                </div>
+
+                <h3>📋 Metodo di Risoluzione</h3>
+                
+                <div class="important-box">
+                    <h4>🔧 Procedimento</h4>
+                    <ol style="line-height: 2;">
+                        <li><strong>Risolvi separatamente</strong> ciascuna disequazione del sistema</li>
+                        <li><strong>Rappresenta graficamente</strong> ogni soluzione sulla retta (facoltativo ma consigliato)</li>
+                        <li><strong>Trova l'intersezione</strong> (∩) di tutte le soluzioni</li>
+                        <li><strong>Scrivi la soluzione finale</strong> come intervallo o unione di intervalli</li>
+                    </ol>
+                </div>
+
+                <h3>🎨 Intersezione vs Unione</h3>
+                
+                <div class="example-box">
+                    <h4>⚠️ Attenzione: Sistemi ≠ Unioni!</h4>
+                    <p><strong>Sistema (∩):</strong> Le disequazioni sono legate da "AND" (e) - devono valere TUTTE</p>
+                    <div class="math-expression">
+                        \[\begin{cases} x > 2 \\ x < 5 \end{cases} \quad \Rightarrow \quad 2 < x < 5 \quad (x > 2 \;\cap\; x < 5)\]
+                    </div>
+                    
+                    <p style="margin-top: 20px;"><strong>Unione (∪):</strong> Le disequazioni sono legate da "OR" (o) - basta che valga UNA</p>
+                    <div class="math-expression">
+                        \[x > 2 \;\text{ OR }\; x < 5 \quad \Rightarrow \quad x \in \mathbb{R} \quad (x > 2 \;\cup\; x < 5)\]
+                    </div>
+                </div>
+
+                <h3>📝 Esercizio Guidato Completo</h3>
+                
+                <div class="example-box">
+                    <h4>🎯 Risolvi il sistema:</h4>
+                    <div class="math-expression">
+                        \[\begin{cases} 3x - 5 > 4 \\ 2x + 1 \leq 9 \\ x - 2 > 0 \end{cases}\]
+                    </div>
+                    
+                    <div class="solution-step" style="margin-top: 20px;">
+                        <span class="step-number">1</span>
+                        <h4>Risolvi la prima disequazione</h4>
+                        <div class="math-expression">
+                            \[3x - 5 > 4 \quad \Rightarrow \quad 3x > 9 \quad \Rightarrow \quad x > 3\]
+                        </div>
+                    </div>
+                    
+                    <div class="solution-step">
+                        <span class="step-number">2</span>
+                        <h4>Risolvi la seconda disequazione</h4>
+                        <div class="math-expression">
+                            \[2x + 1 \leq 9 \quad \Rightarrow \quad 2x \leq 8 \quad \Rightarrow \quad x \leq 4\]
+                        </div>
+                    </div>
+                    
+                    <div class="solution-step">
+                        <span class="step-number">3</span>
+                        <h4>Risolvi la terza disequazione</h4>
+                        <div class="math-expression">
+                            \[x - 2 > 0 \quad \Rightarrow \quad x > 2\]
+                        </div>
+                    </div>
+                    
+                    <div class="solution-step">
+                        <span class="step-number">4</span>
+                        <h4>Intersezione delle tre soluzioni</h4>
+                        <p>Dobbiamo trovare dove valgono TUTTE e tre contemporaneamente:</p>
+                        <div class="math-expression">
+                            \[x > 3 \;\cap\; x \leq 4 \;\cap\; x > 2\]
+                        </div>
+                        <p style="margin-top: 15px;"><strong>Analisi:</strong></p>
+                        <ul>
+                            <li>\(x > 3\) è più restrittivo di \(x > 2\)</li>
+                            <li>Rimangono: \(x > 3\) e \(x \leq 4\)</li>
+                            <li>Intersezione: \(3 < x \leq 4\)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="solution-step">
+                        <span class="step-number">5</span>
+                        <h4>✅ Soluzione Finale</h4>
+                        <div class="math-expression">
+                            \[S = \;]3, 4]\]
+                        </div>
+                    </div>
+                </div>
+
+                <h2 style="margin-top: 50px;">✏️ ESERCIZI SUI SISTEMI</h2>
+                
+                <!-- Esercizio Sistema 1 -->
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <span class="exercise-number">ESERCIZIO 1</span>
+                        <span class="difficulty-badge easy">⭐ Facile</span>
+                    </div>
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Risolvi il sistema:</p>
+                    <div class="math-expression">
+                        \[\begin{cases} x + 2 > 5 \\ 2x - 1 < 11 \end{cases}\]
+                    </div>
+                    
+                    <button class="solution-toggle" onclick="toggleSolution('exs1')">
+                        <span class="icon">🔍</span> Mostra Soluzione
+                    </button>
+                    
+                    <div class="solution-content" id="exs1">
+                        <div class="solution-box">
+                            <div class="solution-step">
+                                <span class="step-number">1</span>
+                                <h4>Prima disequazione</h4>
+                                <div class="math-expression">
+                                    \[x + 2 > 5 \quad \Rightarrow \quad x > 3\]
+                                </div>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">2</span>
+                                <h4>Seconda disequazione</h4>
+                                <div class="math-expression">
+                                    \[2x - 1 < 11 \quad \Rightarrow \quad 2x < 12 \quad \Rightarrow \quad x < 6\]
+                                </div>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">3</span>
+                                <h4>✅ Soluzione Finale</h4>
+                                <div class="math-expression">
+                                    \[S = \;]3, 6[\]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Esercizio Sistema 2 -->
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <span class="exercise-number">ESERCIZIO 2</span>
+                        <span class="difficulty-badge medium">⭐⭐ Medio</span>
+                    </div>
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Risolvi il sistema:</p>
+                    <div class="math-expression">
+                        \[\begin{cases} 3x - 4 \geq 2 \\ -x + 5 > 1 \\ x + 1 < 7 \end{cases}\]
+                    </div>
+                    
+                    <button class="solution-toggle" onclick="toggleSolution('exs2')">
+                        <span class="icon">🔍</span> Mostra Soluzione
+                    </button>
+                    
+                    <div class="solution-content" id="exs2">
+                        <div class="solution-box">
+                            <div class="solution-step">
+                                <span class="step-number">1</span>
+                                <h4>Risolvi tutte e tre</h4>
+                                <p>\(3x - 4 \geq 2 \Rightarrow x \geq 2\)</p>
+                                <p>\(-x + 5 > 1 \Rightarrow x < 4\) ⚠️</p>
+                                <p>\(x + 1 < 7 \Rightarrow x < 6\)</p>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">2</span>
+                                <h4>✅ Soluzione Finale</h4>
+                                <div class="math-expression">
+                                    \[S = [2, 4[\]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Esercizio Sistema 3 -->
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <span class="exercise-number">ESERCIZIO 3</span>
+                        <span class="difficulty-badge hard">⭐⭐⭐ Difficile</span>
+                    </div>
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Risolvi il sistema:</p>
+                    <div class="math-expression">
+                        \[\begin{cases} \frac{x+1}{x-2} \geq 0 \\ x^2 - 9 < 0 \end{cases}\]
+                    </div>
+                    
+                    <button class="solution-toggle" onclick="toggleSolution('exs3')">
+                        <span class="icon">🔍</span> Mostra Soluzione
+                    </button>
+                    
+                    <div class="solution-content" id="exs3">
+                        <div class="solution-box">
+                            <div class="solution-step">
+                                <span class="step-number">1</span>
+                                <h4>Prima: fratta</h4>
+                                <div class="math-expression">
+                                    \[S_1 = [-1, 2[ \;\cup\; ]2, +\infty[\]
+                                </div>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">2</span>
+                                <h4>Seconda: \(x^2 - 9 < 0\)</h4>
+                                <div class="math-expression">
+                                    \[S_2 = \;]-3, 3[\]
+                                </div>
+                            </div>
+                            
+                            <div class="solution-step">
+                                <span class="step-number">3</span>
+                                <h4>✅ Soluzione Finale</h4>
+                                <div class="math-expression">
+                                    \[S = [-1, 2[ \;\cup\; ]2, 3[\]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Genera stelle animate
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Crea schema del segno SVG
+        function createSegnoSchema(values, rows, highlightZones = []) {
+            const width = 800;
+            const height = 80 + (rows.length * 60);
+            const margin = 60;
+            const lineY = 40;
+            
+            // Calcola posizioni X per ogni valore
+            const xPositions = values.map((val, i) => {
+                if (i === 0) return margin;
+                if (i === values.length - 1) return width - margin;
+                return margin + ((width - 2 * margin) / (values.length - 1)) * i;
+            });
+            
+            let svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">`;
+            
+            // Valori in alto
+            svg += `<line x1="${margin}" y1="${lineY}" x2="${width - margin}" y2="${lineY}" stroke="#60a5fa" stroke-width="2"/>`;
+            values.forEach((val, i) => {
+                svg += `<text x="${xPositions[i]}" y="${lineY - 15}" fill="#fbbf24" font-size="16" font-weight="bold" text-anchor="middle">${val}</text>`;
+            });
+            
+            // Righe dello schema
+            rows.forEach((row, rowIdx) => {
+                const rowY = 80 + (rowIdx * 60);
+                const isLast = rowIdx === rows.length - 1;
+                
+                // Sfondo evidenziato per ultima riga
+                if (isLast) {
+                    svg += `<rect x="10" y="${rowY - 25}" width="${width - 20}" height="50" fill="rgba(251, 191, 36, 0.15)" stroke="#fbbf24" stroke-width="2" rx="8"/>`;
+                }
+                
+                // Etichetta
+                svg += `<text x="20" y="${rowY + 5}" fill="${isLast ? '#fbbf24' : '#94a3b8'}" font-size="15" font-weight="bold">${row.label}</text>`;
+                
+                // Linea orizzontale
+                const lineStroke = isLast ? '#fbbf24' : '#475569';
+                const lineWidth = isLast ? 4 : 3;
+                svg += `<line x1="${margin + 120}" y1="${rowY}" x2="${width - margin}" y2="${rowY}" stroke="${lineStroke}" stroke-width="${lineWidth}"/>`;
+                
+                // Linee verticali e zone evidenziate
+                for (let i = 1; i < values.length - 1; i++) {
+                    svg += `<line x1="${xPositions[i]}" y1="${rowY - 20}" x2="${xPositions[i]}" y2="${rowY + 20}" stroke="#60a5fa" stroke-width="3"/>`;
+                }
+                
+                // Zone evidenziate (solo ultima riga)
+                if (isLast && highlightZones.length > 0) {
+                    highlightZones.forEach(zone => {
+                        const x1 = xPositions[zone.start];
+                        const x2 = xPositions[zone.end];
+                        svg += `<rect x="${x1}" y="${rowY - 15}" width="${x2 - x1}" height="30" fill="rgba(251, 191, 36, 0.25)" stroke="rgba(251, 191, 36, 0.5)" stroke-width="2" rx="4"/>`;
+                    });
+                }
+                
+                // Segni e zeri
+                row.signs.forEach((sign, i) => {
+                    const x = (xPositions[i] + xPositions[i + 1]) / 2;
+                    
+                    if (sign === '+') {
+                        svg += `<text x="${x}" y="${rowY + 7}" fill="#10b981" font-size="22" font-weight="bold" text-anchor="middle">+</text>`;
+                    } else if (sign === '-' || sign === '−') {
+                        svg += `<text x="${x}" y="${rowY + 7}" fill="#ef4444" font-size="22" font-weight="bold" text-anchor="middle">−</text>`;
+                    } else if (sign === '0') {
+                        svg += `<circle cx="${xPositions[i + 1]}" cy="${rowY}" r="12" fill="#fbbf24" stroke="#60a5fa" stroke-width="2"/>`;
+                        svg += `<text x="${xPositions[i + 1]}" y="${rowY + 5}" fill="#0f172a" font-size="14" font-weight="bold" text-anchor="middle">0</text>`;
+                    } else if (sign === '∅' || sign === 'X') {
+                        svg += `<circle cx="${xPositions[i + 1]}" cy="${rowY}" r="12" fill="#ef4444" stroke="#dc2626" stroke-width="2"/>`;
+                        svg += `<text x="${xPositions[i + 1]}" y="${rowY + 5}" fill="white" font-size="14" font-weight="bold" text-anchor="middle">∅</text>`;
+                    }
+                });
+            });
+            
+            svg += '</svg>';
+            return svg;
+        }
+
+        // Switch tabs
+        function openTab(tabId) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabId).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Re-render MathJax for new content
+            if (window.MathJax) {
+                MathJax.typesetPromise().catch((err) => console.log(err));
+            }
+        }
+
+        // Toggle solution visibility
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            const button = solution.previousElementSibling;
+            
+            if (solution.classList.contains('visible')) {
+                solution.classList.remove('visible');
+                button.innerHTML = '<span class="icon">🔍</span> Mostra Soluzione';
+            } else {
+                solution.classList.add('visible');
+                button.innerHTML = '<span class="icon">🔼</span> Nascondi Soluzione';
+                
+                // Re-render MathJax
+                if (window.MathJax) {
+                    MathJax.typesetPromise([solution]).catch((err) => console.log(err));
+                }
+                
+                // Scroll smooth
+                setTimeout(() => {
+                    solution.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            createStars();
+            
+            // Initial MathJax render
+            if (window.MathJax) {
+                MathJax.typesetPromise().catch((err) => console.log(err));
+            }
+        });
+    </script>
+</body>
+</html>
